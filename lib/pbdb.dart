@@ -19,7 +19,14 @@ Future<List<TaxonInfo>> pbdbGetTaxa(String species) async {
   // Decode response.
   final data = JSON.decode(response.body);
   final rows = new List<TaxonInfo>();
-  for (final row in data['records']) {
+  for (Map<String, dynamic> row in data['records']) {
+    // If any of the row values is not present: discard this call and return an
+    // empyt list.
+    if (!const ['oid', 'rid', 'nam', 'noc', 'fea', 'fla']
+        .every((key) => row.containsKey(key))) {
+      return [];
+    }
+
     rows.add(new TaxonInfo.from(row));
   }
 
@@ -31,17 +38,10 @@ class TaxonInfo {
   final String name;
   final int numberOfOccurences;
   final int firstAppearanceMax, firstAppearanceMin;
-  final String earlyInterval, lateInterval;
 
-  TaxonInfo(
-      this.id,
-      this.referenceId,
-      this.name,
-      this.numberOfOccurences,
-      this.firstAppearanceMax,
-      this.firstAppearanceMin,
-      this.earlyInterval,
-      this.lateInterval);
+  TaxonInfo(this.id, this.referenceId, this.name, this.numberOfOccurences,
+      this.firstAppearanceMax, this.firstAppearanceMin);
+
   factory TaxonInfo.from(Map<String, dynamic> data) {
     String oid = data['oid'];
     final id = int.parse(oid.substring(4));
@@ -55,8 +55,6 @@ class TaxonInfo {
         data['nam'],
         data['noc'],
         ((data['fea'] as num) * 1000000).round(),
-        ((data['fla'] as num) * 1000000).round(),
-        data['tei'],
-        data['tli']);
+        ((data['fla'] as num) * 1000000).round());
   }
 }

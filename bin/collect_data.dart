@@ -83,8 +83,9 @@ Future main() async {
 
       for (var j = 0; j <= i; j++) {
         // Compute edit distance.
-        distanceTable.last.add(levenshtein(
-            sequences[organismNames[i]], sequences[organismNames[j]]));
+        final editDistance = levenshtein(
+            sequences[organismNames[i]], sequences[organismNames[j]]);
+        distanceTable.last.add(editDistance);
 
         // Compute common ancestor.
         int ancestorAge = 0;
@@ -104,9 +105,9 @@ Future main() async {
         }
         ancestorTable.last.add(ancestorAge);
 
-        if (i != j) {
+        if (editDistance > 0) {
           // Compute clock rate.
-          final clockRate = ancestorAge / distanceTable.last.last;
+          final clockRate = ancestorAge / editDistance;
           clockRateTable.last.add(clockRate);
 
           // Add to ancestorVsRate.

@@ -17,6 +17,9 @@ List<List<String>> genes = [
   ['HBB', 'Hemoglobin subunit beta']
 ];
 
+/// Output directory
+const outDir = 'doc';
+
 /// Taxonomy data for various organisms.
 Map<String, List<TaxonInfo>> organisms = {};
 
@@ -128,18 +131,18 @@ Future main() async {
     });
 
     // Save data to files.
-    await new File('out/${gene[0]}_edit_distance.csv').writeAsString(
+    await new File('$outDir/${gene[0]}_edit_distance.csv').writeAsString(
         const ListToCsvConverter()
             .convert(addColumnRowNames(organismNames, distanceTable)));
-    await new File('out/${gene[0]}_ancestor.csv').writeAsString(
+    await new File('$outDir/${gene[0]}_ancestor.csv').writeAsString(
         const ListToCsvConverter()
             .convert(addColumnRowNames(organismNames, ancestorTable)));
-    await new File('out/${gene[0]}_clock_rate.csv').writeAsString(
+    await new File('$outDir/${gene[0]}_clock_rate.csv').writeAsString(
         const ListToCsvConverter()
             .convert(addColumnRowNames(organismNames, clockRateTable)));
-    await new File('out/${gene[0]}_age_vs_rate.csv')
+    await new File('$outDir/${gene[0]}_age_vs_rate.csv')
         .writeAsString(const ListToCsvConverter().convert(ancestorVsRate));
-    await new File('out/${gene[0]}_counted_rate.csv')
+    await new File('$outDir/${gene[0]}_counted_rate.csv')
         .writeAsString(const ListToCsvConverter().convert(countedRate));
   }
 }

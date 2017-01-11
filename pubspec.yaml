@@ -1,0 +1,8 @@
+name:         molecular_clock
+version:      0.0.0
+author:       Herman Bergwerf <hermanbergwerf@gmail.com>
+description:  Genetic molecular clock calculator
+homepage:     https://github.com/hermanbergwerf/molecular-clock
+environment:
+  sdk:        '>=1.8.0 <2.0.0'
+dependencies:

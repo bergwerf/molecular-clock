@@ -6,3 +6,6 @@ homepage:     https://github.com/hermanbergwerf/molecular-clock
 environment:
   sdk:        '>=1.8.0 <2.0.0'
 dependencies:
+  http:         ^0.11.3+9
+  csv:          ^3.1.1
+  levenshtein:  ^1.0.2

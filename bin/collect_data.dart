@@ -37,12 +37,12 @@ Future main() async {
     Map<String, String> sequences = {};
     for (final record in uniprotData) {
       //if (record['protein names'].startsWith(new RegExp('${gene[1]}\\s?'))) {
-        final organismRe = new RegExp(r'^([a-zA-Z\s]+)\(?');
-        final match = organismRe.firstMatch(record['organism']);
+      final organismRe = new RegExp(r'^([a-zA-Z\s]+)\(?');
+      final match = organismRe.firstMatch(record['organism']);
 
-        if (match != null) {
-          sequences[match.group(1).trim()] = record['sequence'];
-        }
+      if (match != null) {
+        sequences[match.group(1).trim()] = record['sequence'];
+      }
       //}
     }
 

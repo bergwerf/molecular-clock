@@ -12,8 +12,8 @@ import 'package:csv/csv.dart';
 
 /// Input genes
 List<List<String>> genes = [
-//  ['HBA1', 'Hemoglobin subunit alpha 1'],
-//  ['HBA2', 'Hemoglobin subunit alpha 2'],
+  ['HBA1', 'Hemoglobin subunit alpha-1'],
+  ['HBA2', 'Hemoglobin subunit alpha-2'],
   ['HBB', 'Hemoglobin subunit beta']
 ];
 
@@ -36,17 +36,17 @@ Future main() async {
     print('Retrieved sequence data.');
     Map<String, String> sequences = {};
     for (final record in uniprotData) {
-      if (record['protein names'].startsWith(new RegExp('${gene[1]}\\s?'))) {
+      //if (record['protein names'].startsWith(new RegExp('${gene[1]}\\s?'))) {
         final organismRe = new RegExp(r'^([a-zA-Z\s]+)\(?');
         final match = organismRe.firstMatch(record['organism']);
 
         if (match != null) {
           sequences[match.group(1).trim()] = record['sequence'];
         }
-      }
+      //}
     }
 
-    // For testing purposes: only use first three sequences.
+    // Retrieve list of organisms.
     final organismNames = sequences.keys.toList();
 
     // Retrieve parent taxa per organism.
